@@ -1,13 +1,10 @@
 import { timingSafeEqual } from "node:crypto";
-import { createRequire } from "node:module";
 
 import type { NextFunction, Request, Response } from "express";
-import type jsonwebtoken from "jsonwebtoken";
+import * as jwt from "jsonwebtoken";
 
 import { config } from "./config.js";
 
-const require = createRequire(import.meta.url);
-const jwt = require("jsonwebtoken") as typeof jsonwebtoken;
 const cookieName = "excalidraw_minio_session";
 const sessionDays = 7;
 

@@ -1,6 +1,6 @@
 # syntax=docker/dockerfile:1
 
-FROM node:24-bookworm-slim AS build
+FROM node:24-alpine AS build
 
 WORKDIR /app
 
@@ -9,9 +9,8 @@ RUN npm ci
 
 COPY . .
 RUN npm run build
-RUN npm prune --omit=dev
 
-FROM node:24-bookworm-slim AS runtime
+FROM node:24-alpine AS runtime
 
 ENV NODE_ENV=production \
     HOST=0.0.0.0 \
@@ -23,10 +22,8 @@ WORKDIR /app
 
 RUN mkdir -p /app/data && chown -R node:node /app
 
-COPY --from=build --chown=node:node /app/package*.json ./
-COPY --from=build --chown=node:node /app/node_modules ./node_modules
 COPY --from=build --chown=node:node /app/dist ./dist
-COPY --from=build --chown=node:node /app/dist-server ./dist-server
+COPY --from=build --chown=node:node /app/dist-server/index.js ./dist-server/index.js
 
 USER node
 
