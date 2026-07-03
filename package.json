@@ -7,7 +7,7 @@
     "dev": "concurrently -k -n web,api -c cyan,magenta \"vite --host 127.0.0.1\" \"tsx watch --clear-screen=false server/index.ts\"",
     "api": "tsx watch --clear-screen=false server/index.ts",
     "build": "tsc -b && vite build && npm run build:server",
-    "build:server": "node -e \"require('node:fs').rmSync('dist-server',{recursive:true,force:true})\" && esbuild server/index.ts --bundle --platform=node --target=node24 --format=esm --banner:js=\"import { createRequire } from 'node:module'; const require = createRequire(import.meta.url);\" --minify --legal-comments=none --outfile=dist-server/index.js",
+    "build:server": "node -e \"require('node:fs').rmSync('dist-server',{recursive:true,force:true})\" && esbuild server/index.ts --bundle --platform=node --target=node24 --format=esm --banner:js=\"import { createRequire } from 'node:module'; const require = createRequire(import.meta.url);\" --legal-comments=none --outfile=dist-server/index.js",
     "lint": "oxlint",
     "preview": "vite preview",
     "start": "node dist-server/index.js"

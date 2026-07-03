@@ -23,6 +23,14 @@ function numberEnv(name: string, fallback: number) {
   return Number.isFinite(parsed) ? parsed : fallback;
 }
 
+function endpointEnv(name: string) {
+  const value = process.env[name]?.trim() ?? "";
+  if (!value) {
+    return "";
+  }
+  return /^https?:\/\//i.test(value) ? value : `http://${value}`;
+}
+
 export const config = {
   appPassword: process.env.APP_PASSWORD ?? "admin123",
   cookieSecure: boolEnv("COOKIE_SECURE", false),
@@ -33,7 +41,7 @@ export const config = {
     accessKey: process.env.MINIO_ACCESS_KEY ?? "",
     autoCreateBucket: boolEnv("MINIO_AUTO_CREATE_BUCKET", true),
     bucket: process.env.MINIO_BUCKET ?? "",
-    endpoint: process.env.MINIO_ENDPOINT ?? "",
+    endpoint: endpointEnv("MINIO_ENDPOINT"),
     forcePathStyle: boolEnv("MINIO_FORCE_PATH_STYLE", true),
     prefix: (process.env.MINIO_PREFIX ?? "excalidraw").replace(/^\/+|\/+$/g, ""),
     region: process.env.MINIO_REGION ?? "us-east-1",

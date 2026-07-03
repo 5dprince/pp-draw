@@ -30,6 +30,8 @@ MINIO_FORCE_PATH_STYLE=true
 MINIO_PREFIX=excalidraw
 ```
 
+`MINIO_ENDPOINT` 可以写完整地址 `http://172.16.2.10:9000`；如果只写 `172.16.2.10:9000`，服务会自动按 HTTP 处理。
+
 大图片画布会让 JSON 很大，可以按需调高：
 
 ```env
