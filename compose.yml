@@ -1,0 +1,26 @@
+services:
+  pp-draw:
+    build:
+      context: .
+    image: pp-draw:latest
+    container_name: pp-draw
+    restart: unless-stopped
+    ports:
+      - "4173:4173"
+    environment:
+      APP_PASSWORD: ${APP_PASSWORD}
+      SESSION_SECRET: ${SESSION_SECRET}
+      COOKIE_SECURE: ${COOKIE_SECURE:-false}
+      JSON_LIMIT: ${JSON_LIMIT:-200mb}
+      MINIO_ENDPOINT: ${MINIO_ENDPOINT}
+      MINIO_REGION: ${MINIO_REGION:-us-east-1}
+      MINIO_BUCKET: ${MINIO_BUCKET}
+      MINIO_ACCESS_KEY: ${MINIO_ACCESS_KEY}
+      MINIO_SECRET_KEY: ${MINIO_SECRET_KEY}
+      MINIO_FORCE_PATH_STYLE: ${MINIO_FORCE_PATH_STYLE:-true}
+      MINIO_PREFIX: ${MINIO_PREFIX:-excalidraw}
+    volumes:
+      - pp-draw-data:/app/data
+
+volumes:
+  pp-draw-data:
