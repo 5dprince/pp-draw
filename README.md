@@ -53,7 +53,7 @@ docker run -d \
   --name pp-draw \
   --restart unless-stopped \
   -p 4173:4173 \
-  -v pp-draw-data:/app/data \
+  -v /home/pp-draw-data:/app/data \
   -e APP_PASSWORD='change-me' \
   -e SESSION_SECRET='replace-with-a-long-random-string' \
   -e MINIO_ENDPOINT='http://your-minio-host:9000' \
@@ -62,7 +62,8 @@ docker run -d \
   -e MINIO_SECRET_KEY='your-secret-key' \
   -e MINIO_FORCE_PATH_STYLE='true' \
   -e MINIO_PREFIX='excalidraw' \
-  pp-draw
+  5dprince/pp-draw
+
 ```
 
 打开：
